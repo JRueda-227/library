@@ -11,8 +11,6 @@ function addBookToLibrary(title, author, pages) {
     myLibrary.push(newBook);
 }
 
-addBookToLibrary('LOTR', 'Tolkien', '295')
-addBookToLibrary('Meditations', 'Marcus Aurelious', '200');
 
 function displayBook() {
     for (let book of myLibrary) {
@@ -37,6 +35,31 @@ function displayBook() {
 }
 
 const library = document.querySelector('.library');
+const newBookForm = document.querySelector('#new-book-form');
+const form = document.querySelector('#form');
+const newBookButton = document.querySelector('#new-book-button');
+const addButton = document.querySelector('#add-button');
+const closeButton = document.querySelector('#close-button');
 
-const button = document.querySelector('button')
-button.addEventListener('click', displayBook);
+newBookButton.addEventListener('click', () => {
+    newBookForm.showModal();
+})
+
+closeButton.addEventListener('click', () => {
+    newBookForm.close();
+})
+
+addButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const bookTitle = document.querySelector('#book-title').value;
+    const bookAuthor = document.querySelector('#book-author').value;
+    const bookPages = document.querySelector('#book-pages').value;
+    
+    addBookToLibrary(bookTitle, bookAuthor, bookPages);
+    displayBook();
+
+})
+
+
+
