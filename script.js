@@ -6,22 +6,33 @@ function Book(title, author, pages) {
     this.pages = pages;
 }
 
-function addBookToLibrary(title, author, pages) {
-    const newBook = new Book(title, author, pages);
+Book.prototype.readStatus = function() {
+
+}
+
+function addBookToLibrary() {
+    const bookTitle = document.querySelector('#book-title').value;
+    const bookAuthor = document.querySelector('#book-author').value;
+    const bookPages = document.querySelector('#book-pages').value;
+    const newBook = new Book(bookTitle, bookAuthor, bookPages);
     myLibrary.push(newBook);
 }
 
-
 function displayBook() {
-    for (let book of myLibrary) {
+    library.textContent = '';
+    for (let i = 0; i < myLibrary.length; i++) {
+        let book = myLibrary[i];
         const card = document.createElement('div');
         const title = document.createElement('h3');
-        const author = document.createElement('h4');
-        const pages = document.createElement('h4');
+        const author = document.createElement('h5');
+        const pages = document.createElement('p');
+        const readButton = document.createElement('button');
+        const removeButton = document.createElement('button');
 
         card.classList.add('card');
 
         title.textContent = book.title;
+        title.classList.add('card-header');
         card.appendChild(title);
 
         author.textContent = book.author;
@@ -30,8 +41,38 @@ function displayBook() {
         pages.textContent = book.pages;
         card.appendChild(pages);
 
+        readButton.textContent = 'Read';
+        readButton.classList.add('read');
+        card.appendChild(readButton);
+
+        readButton.addEventListener('click', () => {
+            readButton.readStatus();
+        })
+
+        removeButton.textContent = 'Remove';
+        removeButton.classList.add('remove-button');
+        card.appendChild(removeButton);
+
+        removeButton.addEventListener('click', () => {
+            removeBook(book);
+            library.removeChild(card);
+        })
+
         library.appendChild(card);
     }
+}
+
+function removeBook(book) {
+    let index = myLibrary.findIndex(obj => obj.title === book.title)
+    if (index != -1) {
+        myLibrary.splice(index, 1);
+    }
+}
+
+function clearInput() {
+    document.querySelector('#book-title').value = '';
+    document.querySelector('#book-author').value = '';
+    document.querySelector('#book-pages').value = '';
 }
 
 const library = document.querySelector('.library');
@@ -51,14 +92,10 @@ closeButton.addEventListener('click', () => {
 
 addButton.addEventListener('click', (event) => {
     event.preventDefault();
-
-    const bookTitle = document.querySelector('#book-title').value;
-    const bookAuthor = document.querySelector('#book-author').value;
-    const bookPages = document.querySelector('#book-pages').value;
     
-    addBookToLibrary(bookTitle, bookAuthor, bookPages);
+    addBookToLibrary();
     displayBook();
-
+    clearInput();
 })
 
 

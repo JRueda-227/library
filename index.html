@@ -9,25 +9,22 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="library">
-        <dialog id="new-book-form">
-            <button autofocus id="close-button">Close</button>
-            <form method="dialog" id="form">
-                <label for="book-title">Title:</label>
-                <input type="text" id="book-title" name="title">
+    <button id="new-book-button">New Book</button>
+    <div class="library"></div>
+    <dialog id="new-book-form">
+        <button autofocus id="close-button">x</button>
+        <form method="dialog" id="form">
+            <label for="book-title">Title:</label>
+            <input type="text" id="book-title" name="title">
 
-                <label for="book-author">Author:</label>
-                <input type="text" id="book-author" name="author">
+            <label for="book-author">Author:</label>
+            <input type="text" id="book-author" name="author">
 
-                <label for="book-pages">Pages:</label>
-                <input type="text" id="book-pages" name="pages">
+            <label for="book-pages">Pages:</label>
+            <input type="number" id="book-pages" name="pages">
 
-                <div class="button-wrapper">
-                    <button id="add-button">Add</button>
-                </div>
-            </form>
-        </dialog>
-        <button id="new-book-button">New Book</button>
-    </div>
+            <button id="add-button">Add</button>
+        </form>
+    </dialog>
 </body>
 </html>
