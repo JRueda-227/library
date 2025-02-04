@@ -44,7 +44,7 @@ function displayBook() {
         card.appendChild(pages);
 
         read.textContent = book.read ? 'Read' : 'Not Read';
-        read.classList.add('read-button', book.read ? 'read' : 'not-read');
+        read.classList.add(book.read ? 'read' : 'not-read');
         card.appendChild(read);
 
         read.addEventListener('click', () => {

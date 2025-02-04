@@ -67,8 +67,10 @@ input {
     gap: 5px;
 }
 
-.book-read {
+.read,
+.not-read {
     padding: 4px 10px;
+    margin-bottom: 20px;
 
     color: white;
     border-radius: 6px;
