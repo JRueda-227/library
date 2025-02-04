@@ -1,20 +1,22 @@
 const myLibrary = [];
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.read = read;
 }
 
 Book.prototype.readStatus = function() {
-
+    this.read = !this.read;
 }
 
 function addBookToLibrary() {
     const bookTitle = document.querySelector('#book-title').value;
     const bookAuthor = document.querySelector('#book-author').value;
     const bookPages = document.querySelector('#book-pages').value;
-    const newBook = new Book(bookTitle, bookAuthor, bookPages);
+    const bookRead = document.querySelector('#book-read').checked;
+    const newBook = new Book(bookTitle, bookAuthor, bookPages, bookRead);
     myLibrary.push(newBook);
 }
 
@@ -26,7 +28,7 @@ function displayBook() {
         const title = document.createElement('h3');
         const author = document.createElement('h5');
         const pages = document.createElement('p');
-        const readButton = document.createElement('button');
+        const read = document.createElement('button');
         const removeButton = document.createElement('button');
 
         card.classList.add('card');
@@ -41,12 +43,13 @@ function displayBook() {
         pages.textContent = book.pages;
         card.appendChild(pages);
 
-        readButton.textContent = 'Read';
-        readButton.classList.add('read');
-        card.appendChild(readButton);
+        read.textContent = book.read ? 'Read' : 'Not Read';
+        read.classList.add('read-button', book.read ? 'read' : 'not-read');
+        card.appendChild(read);
 
-        readButton.addEventListener('click', () => {
-            readButton.readStatus();
+        read.addEventListener('click', () => {
+            book.readStatus();
+            displayBook()
         })
 
         removeButton.textContent = 'Remove';
