@@ -13,6 +13,7 @@ body {
 .library {
     display: flex;
     flex-wrap: wrap;
+    padding: 20px;
 }
 
 #new-book-button {
@@ -124,4 +125,8 @@ input {
 
 .remove-button {
     width: 80%;
+}
+
+.error {
+    border: solid red 2px;
 }
