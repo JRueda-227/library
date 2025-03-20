@@ -58,10 +58,44 @@ const displayController = (() => {
         bookPages.value = '';
     }
 
+    function validateForm() {
+        let isValid = true;
+
+        if (isDuplicateTitle(bookTitle.value.trim())) {
+            bookTitle.setCustomValidity('This book already exists in the library');
+        } else {
+            bookTitle.setCustomValidity('');
+        }
+
+        if (!bookTitle.checkValidity()) {
+            bookTitle.reportValidity();
+            isValid = false;
+        }
+
+        if (!bookAuthor.checkValidity()) {
+            bookAuthor.reportValidity();
+            isValid = false;
+        }
+
+        if (!bookPages.checkValidity()) {
+            bookPages.reportValidity();
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function isDuplicateTitle(title) {
+        return myLibrary.library.some(book => book.title.toLowerCase() === title.toLowerCase());
+    }
+
     function createBook() {
+       if (!validateForm()) return
+
         const newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookRead.checked);
         myLibrary.addBookToLibrary(newBook);
         renderBook(newBook)
+        closeModal();
     }
 
     function removeBook(book) {
@@ -79,11 +113,12 @@ const displayController = (() => {
         title.textContent = book.title;
         title.classList.add('card-header');
 
-        const author = document.createElement('h5');
-        author.textContent = book.author;
+        const author = document.createElement('p');
+        author.textContent = `by ${book.author}`;
+        author.classList.add('card-author');
 
         const pages = document.createElement('p');
-        pages.textContent = book.pages;
+        pages.textContent = `${book.pages} pages`;
         
         const read = document.createElement('button');
         updateReadStatus(read, book);
@@ -119,7 +154,6 @@ const displayController = (() => {
         addToLibraryBtn.addEventListener('click', (event) => {
             event.preventDefault();
             createBook();
-            closeModal();
         });
     }
 
@@ -129,6 +163,5 @@ const displayController = (() => {
 
     return { init };
 })();
-
 
 displayController.init();
